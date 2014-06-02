@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 class NewVisitorTest(unittest.TestCase):
@@ -16,22 +17,34 @@ class NewVisitorTest(unittest.TestCase):
 
 		#user looks at page title and heading
 		self.assertIn('To-Do', self.browser.title)
-		self.fail('Finish the test!')
 		
-#user invited to enter to-do item straight away
+		#user invited to enter to-do item straight away
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		self.assertEqual(
+			inputbox.get_attribute('placeholder'),
+			'Enter a to-do item'
+		)
+		
+		#user types "Buy peacock feathers" into text box
+		inputbox.send_keys('Buy peacock feathers')
 
-#user types "Buy peacock feathers" into text box
+		#when user hits enter, the page updates, and the page lists "1: Buy peacock feathers" as an item in a to-do list
+		inputbox.send_keys(Keys.ENTER)
+		
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertTrue(
+			any(row.text == '1: Buy peacock feathers' for row in rows)
+		)
+		
+		#There is still a text box inviting her to add another item. She enters "Use peacock feathers to make a fly"
+		self.fail('Finishe the test!')
+		#The page updates again, and now shows both items on her list
 
-#when user hits enter, the page updates, and the page lists "1: Buy peacock feathers" as an item in a to-do list
+		#The user sees that the site has generated a unique URL for their to-do lists
+		#The user visits the URL and sees that the to-do list is still there
 
-#There is still a text box inviting her to add another item. She enters "Use peacock feathers to make a fly"
-
-#The page updates again, and now shows both items on her list
-
-#The user sees that the site has generated a unique URL for their to-do lists
-#The user visits the URL and sees that the to-do list is still there
-
-#END
+		#END
 
 if __name__ == '__main__':
 	unittest.main(warnings='ignore')
