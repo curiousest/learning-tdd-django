@@ -3,6 +3,7 @@ from django.template.loader import render_to_string
 from django.test import TestCase
 from django.http import HttpRequest
 
+from lists.models import Item
 from lists.views import home_page
 
 class HomePageTest(TestCase):
@@ -28,5 +29,5 @@ class HomePageTest(TestCase):
 		expected_html = render_to_string(
 			'home.html',
 			{'new_item_text':  'A new list item'}
-			)
+		)
 		self.assertEqual(response.content.decode(), expected_html)
