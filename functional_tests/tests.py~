@@ -51,7 +51,7 @@ class NewVisitorTest(LiveServerTestCase):
 		
 		#Now a new user, Peter, visits
 		
-		# Use a new browser session to make sure Ida's session is over
+		## Use a new browser session to make sure Ida's session is over
 		self.browser.quit()
 		self.browser = webdriver.Firefox()
 		
