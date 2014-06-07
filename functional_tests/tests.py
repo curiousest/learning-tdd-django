@@ -75,12 +75,7 @@ class NewVisitorTest(LiveServerTestCase):
 		page_text = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Buy peacock feathers', page_text)
 		self.assertIn('Buy milk', page_text)
-						
-		#The user sees that the site has generated a unique URL for their to-do lists
-		self.fail('Finish the test!')
-		
-		#The user visits the URL and sees that the to-do list is still there
-		
+								
 		#END
 		
 
